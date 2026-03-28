@@ -3,24 +3,45 @@
 
 <body>
     <div id="root"></div>
+    <div id="my"></div>
 </body>
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-<script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
     const root = document.getElementById("root");
-    const h3 = React.createElement("h3", 
-    {
-        onMouseEnter: () => console.log("mouse enter"),
-    }, "Hello: I'm a span");
-    const btn = React.createElement("button", 
-    {
-        style: {
-            backgroundColor: "tomato"
-        },
-        onClick: () => console.log("Im clicked"),
-    }, "Click me");
-    const container = React.createElement("div", null, [h3, btn]);
-    ReactDOM.render(container, root);
+    const my = document.getElementById("my");
+    function Title() {
+        return (
+            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+                "Hello: I'm a title"
+            </h3>
+        );
+    }
+    const MyTitle = (
+        <h3 id="myTitle" onClick={() => console.log("내가만든거")}>
+            ㅎㅇ
+        </h3>
+    );
+    ReactDOM.render(MyTitle, my);
+
+    const Button = () => (
+        <button
+            style={{
+                backgroundColor: "tomato"
+            }}
+            onClick={() => console.log("Im clicked")}>
+            Click me!
+        </button>
+    );
+
+    const Container = () => (
+        <div>
+            <Title />
+            <Button />
+        </div>
+    );
+    ReactDOM.render(<Container />, root);
 
 </script>
 
