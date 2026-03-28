@@ -3,46 +3,28 @@
 
 <body>
     <div id="root"></div>
-    <div id="my"></div>
 </body>
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-    const root = document.getElementById("root");
-    const my = document.getElementById("my");
-    function Title() {
-        return (
-            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-                "Hello: I'm a title"
-            </h3>
-        );
+    const root = document.getElementById("root")
+    let counter = 0;
+    function countUp () {
+       counter += 1; 
+       reRender();
     }
-    const MyTitle = (
-        <h3 id="myTitle" onClick={() => console.log("내가만든거")}>
-            ㅎㅇ
-        </h3>
-    );
-    ReactDOM.render(MyTitle, my);
-
-    const Button = () => (
-        <button
-            style={{
-                backgroundColor: "tomato"
-            }}
-            onClick={() => console.log("Im clicked")}>
-            Click me!
-        </button>
-    );
+    function reRender() {
+        ReactDOM.render(<Container />, root);
+    }
 
     const Container = () => (
         <div>
-            <Title />
-            <Button />
+            <h3>Total clicks: {counter}</h3>
+            <button onClick={countUp}>Click Me!</button>
         </div>
     );
-    ReactDOM.render(<Container />, root);
-
+    reRender();
 </script>
 
 </html>
