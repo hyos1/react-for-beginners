@@ -9,9 +9,9 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
     const root = document.getElementById("root")
-    const App = () => {
+    const MinutesToHours = () => {
         const [amount, setAmount] = React.useState(0);
-        const [flipped, setFlipped] = React.useState(false);
+        const [inverted, setInverted] = React.useState(false);
         const onChange = (event) => {
             setAmount(event.target.value)
         };
@@ -20,36 +20,59 @@
         }
         const onFlip = () => {
             reset();
-            setFlipped((current) => !current);
+            setInverted((current) => !current);
         };
         return (
             <div>
-                <h1 className="hi">Super Converter</h1>
                 <div>
                     <label htmlFor="minutes">Minutes</label>
                     <input
                         autoFocus
-                        value={flipped ? amount * 60 : amount}
+                        value={inverted ? amount * 60 : amount}
                         id="minutes"
                         type="number"
                         placeholder="Minutes"
                         onChange={onChange}
-                        disabled={flipped}
+                        disabled={inverted}
                     />
                 </div>
                 <div>
                     <label htmlFor="hours">Hours</label>
                     <input
-                        value={flipped ? amount : amount / 60}
+                        value={inverted ? amount : amount / 60}
                         id="hours"
                         type="number"
                         placeholder="Hours"
                         onChange={onChange}
-                        disabled={!flipped}
+                        disabled={!inverted}
                     />
                 </div>
                 <button onClick={reset}>Reset</button>
-                <button onClick={onFlip}>Flip</button>
+                <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+            </div>
+        );
+    };
+    const KmToMiles = () => {
+        return (
+            <h3>KM 2 M</h3>
+        );
+    }
+    const App = () => {
+        const [index, setIndex] = React.useState("xx");
+        const onSelect = (event) => {
+            console.log(event.target.value);
+            setIndex(event.target.value);
+        }
+        return (
+            <div>
+                <h1 className="hi">Super Converter</h1>
+                <select value={index} onChange={onSelect} name="" id="">
+                    <option value="xx">원하는 변환기를 선택하세요</option>
+                    <option value="0">Minutes & Hours</option>
+                    <option value="1">Km & Miles</option>
+                </select>
+                {index === "0" ? <MinutesToHours /> : null}
+                {index === "1" ? <KmToMiles /> : null}
             </div>
         );
     };
